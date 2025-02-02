@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu } from "lucide-react";
+import { Menu, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 
@@ -38,6 +38,15 @@ export const Navbar = () => {
             >
               Categories
             </Link>
+            <Link 
+              to="/settings" 
+              className={`text-sm font-medium hover:text-primary transition-colors ${isActive('/settings')}`}
+            >
+              <span className="flex items-center gap-2">
+                <Settings className="h-4 w-4" />
+                Settings
+              </span>
+            </Link>
           </div>
 
           <Button
@@ -73,6 +82,16 @@ export const Navbar = () => {
                 onClick={() => setIsOpen(false)}
               >
                 Categories
+              </Link>
+              <Link 
+                to="/settings" 
+                className={`text-sm font-medium hover:text-primary transition-colors ${isActive('/settings')}`}
+                onClick={() => setIsOpen(false)}
+              >
+                <span className="flex items-center gap-2">
+                  <Settings className="h-4 w-4" />
+                  Settings
+                </span>
               </Link>
             </div>
           </div>

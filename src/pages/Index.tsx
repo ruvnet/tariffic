@@ -4,7 +4,6 @@ import { SearchBar } from "@/components/SearchBar";
 import { CompanyCard } from "@/components/CompanyCard";
 import { Footer } from "@/components/Footer";
 import { CategorySection } from "@/components/CategorySection";
-import { AIEnhancer } from "@/components/AIEnhancer";
 import { motion, AnimatePresence } from "framer-motion";
 import { companies } from "@/data/companies";
 
@@ -79,10 +78,6 @@ const Index = () => {
               description: c.description 
             }))} 
           />
-        </div>
-
-        <div className="mb-12">
-          <AIEnhancer />
         </div>
 
         <AnimatePresence mode="wait">
