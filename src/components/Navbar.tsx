@@ -35,6 +35,11 @@ export const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
+            <img 
+              src="/placeholder.svg" 
+              alt="Tariffic Logo" 
+              className="h-8 w-8"
+            />
             <span className="text-xl font-semibold">Tariffic</span>
           </Link>
 
