@@ -4,75 +4,100 @@ import { SearchBar } from "@/components/SearchBar";
 import { CompanyCard } from "@/components/CompanyCard";
 import { Footer } from "@/components/Footer";
 
-// Sample data - will be replaced with API calls later
+// Enhanced sample data with more detailed information
 const sampleCompanies = [
   {
-    name: "Microsoft",
-    description: "Global technology corporation known for Windows OS, Office suite, and cloud services.",
+    name: "Apple Inc.",
+    description: "Global technology company specializing in consumer electronics, software, and services.",
     isAmerican: true,
-    alternatives: [
-      {
-        name: "SAP",
-        country: "Germany",
-        description: "Enterprise software solutions and business applications provider.",
-      },
-      {
-        name: "Nokia",
-        country: "Finland",
-        description: "Telecommunications, technology, and consumer electronics company.",
-      },
+    revenue: "$394.3B (2023)",
+    employees: "164,000+",
+    headquarters: "Cupertino, California",
+    foundedYear: 1976,
+    supplyChain: [
+      { location: "China", type: "Manufacturing", percentage: 60 },
+      { location: "USA", type: "R&D", percentage: 20 },
+      { location: "Taiwan", type: "Components", percentage: 15 },
+      { location: "Other", type: "Various", percentage: 5 }
     ],
-  },
-  {
-    name: "Amazon",
-    description: "E-commerce and cloud computing giant with diverse technology services.",
-    isAmerican: true,
     alternatives: [
       {
-        name: "Alibaba",
-        country: "China",
-        description: "Global e-commerce and technology company.",
-      },
-      {
-        name: "Rakuten",
-        country: "Japan",
-        description: "E-commerce and online retailing platform.",
-      },
-    ],
-  },
-  {
-    name: "Apple",
-    description: "Consumer electronics and software company known for iPhone, Mac, and iOS.",
-    isAmerican: true,
-    alternatives: [
-      {
-        name: "Samsung",
+        name: "Samsung Electronics",
         country: "South Korea",
-        description: "Consumer electronics, mobile devices, and home appliances manufacturer.",
+        description: "Leading manufacturer of electronics and digital media devices",
+        marketShare: "20% Global Smartphone Market",
+        sustainability: "Carbon Neutral by 2030"
       },
       {
-        name: "Sony",
+        name: "Sony Corporation",
         country: "Japan",
-        description: "Electronics, gaming, and entertainment company.",
-      },
-    ],
+        description: "Consumer and professional electronics, gaming, entertainment",
+        marketShare: "15% Global Electronics Market",
+        sustainability: "100% Renewable Energy by 2030"
+      }
+    ]
   },
   {
-    name: "Meta",
-    description: "Social media and technology company behind Facebook, Instagram, and WhatsApp.",
+    name: "Microsoft Corporation",
+    description: "Technology corporation specializing in software, cloud computing, and AI.",
     isAmerican: true,
+    revenue: "$211.9B (2023)",
+    employees: "221,000+",
+    headquarters: "Redmond, Washington",
+    foundedYear: 1975,
+    supplyChain: [
+      { location: "USA", type: "Software Development", percentage: 45 },
+      { location: "India", type: "IT Services", percentage: 30 },
+      { location: "Ireland", type: "Data Centers", percentage: 15 },
+      { location: "Other", type: "Various", percentage: 10 }
+    ],
     alternatives: [
       {
-        name: "Line",
-        country: "Japan",
-        description: "Social media and communications platform.",
+        name: "SAP SE",
+        country: "Germany",
+        description: "Enterprise software and cloud solutions provider",
+        marketShare: "23% Enterprise Software Market",
+        sustainability: "Net Zero by 2030"
       },
       {
-        name: "WeChat",
+        name: "Huawei",
         country: "China",
-        description: "Multi-purpose messaging and social media app.",
-      },
+        description: "Technology and telecommunications equipment provider",
+        marketShare: "18% Global Tech Infrastructure",
+        sustainability: "Green Partner Network"
+      }
+    ]
+  },
+  {
+    name: "Tesla, Inc.",
+    description: "Electric vehicle and clean energy company.",
+    isAmerican: true,
+    revenue: "$96.8B (2023)",
+    employees: "127,800+",
+    headquarters: "Austin, Texas",
+    foundedYear: 2003,
+    supplyChain: [
+      { location: "USA", type: "Assembly", percentage: 40 },
+      { location: "China", type: "Manufacturing", percentage: 25 },
+      { location: "Germany", type: "Production", percentage: 20 },
+      { location: "Other", type: "Components", percentage: 15 }
     ],
+    alternatives: [
+      {
+        name: "BYD Company",
+        country: "China",
+        description: "World's largest electric vehicle manufacturer",
+        marketShare: "25% Global EV Market",
+        sustainability: "Zero Emission Strategy"
+      },
+      {
+        name: "Volkswagen Group",
+        country: "Germany",
+        description: "Leading automotive manufacturer with strong EV focus",
+        marketShare: "15% Global EV Market",
+        sustainability: "Carbon Neutral by 2050"
+      }
+    ]
   }
 ];
 
@@ -95,8 +120,8 @@ const Index = () => {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Find Non-American Alternatives</h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Discover alternative companies and products from around the world. Enter a company name
-            to find non-American alternatives.
+            Discover alternative companies and products from around the world. Search for a company
+            to find detailed information about its supply chain and non-American alternatives.
           </p>
         </div>
 
@@ -104,7 +129,7 @@ const Index = () => {
           <SearchBar onSearch={handleSearch} />
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8">
           {searchResults.map((company) => (
             <CompanyCard key={company.name} {...company} />
           ))}
