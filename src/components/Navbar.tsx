@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, Settings, Globe, Home, Info, Grid } from "lucide-react";
+import { Menu, Settings, Globe, Home, Info, Grid, Boxes } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -35,11 +35,7 @@ export const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
-            <img 
-              src="/placeholder.svg" 
-              alt="Tariffic Logo" 
-              className="h-8 w-8"
-            />
+            <Boxes className="h-6 w-6 text-primary" />
             <span className="text-xl font-semibold">Tariffic</span>
           </Link>
 
