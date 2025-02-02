@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { type Product } from "@/types/product";
 
 interface SupplyChainNode {
   location: string;
@@ -26,6 +29,7 @@ interface CompanyCardProps {
   foundedYear: number;
   supplyChain: SupplyChainNode[];
   alternatives: Alternative[];
+  products?: Product[];
 }
 
 export const CompanyCard = ({ 
@@ -37,7 +41,8 @@ export const CompanyCard = ({
   headquarters,
   foundedYear,
   supplyChain,
-  alternatives 
+  alternatives,
+  products = [] 
 }: CompanyCardProps) => {
   return (
     <motion.div
@@ -131,6 +136,31 @@ export const CompanyCard = ({
                           <dd>{alt.sustainability}</dd>
                         </div>
                       </dl>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {products && products.length > 0 && (
+            <div className="mt-6">
+              <h4 className="text-lg font-semibold mb-3">Products</h4>
+              <div className="grid gap-4 md:grid-cols-2">
+                {products.map((product) => (
+                  <Card key={product.id} className="bg-white/50">
+                    <CardHeader>
+                      <CardTitle className="text-lg">{product.name}</CardTitle>
+                      <CardDescription>{product.category}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-gray-600 mb-4">{product.description}</p>
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium">{product.price}</span>
+                        <Button asChild>
+                          <Link to={`/product/${product.id}`}>View Details</Link>
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 ))}

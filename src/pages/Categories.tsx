@@ -1,38 +1,32 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CategorySection } from "@/components/CategorySection";
-import { CategorySearch } from "@/components/CategorySearch";
+import { UnifiedSearch } from "@/components/UnifiedSearch";
 import { useState } from "react";
 
 const allCategories = [
   {
-    title: "Technology",
-    gdp: "2.1T",
-    description: "Digital technology, hardware, and software sectors",
-    count: 156,
+    title: "Consumer",
+    gdp: "850B",
+    description: "Consumer products with detailed tracking of US-sourced components and manufacturing",
+    count: 180,
     subcategories: [
-      { name: "Consumer Electronics", gdp: "460B", count: 45 },
-      { name: "Enterprise Software", gdp: "380B", count: 38 },
-      { name: "Semiconductors", gdp: "550B", count: 29 },
-      { name: "Cloud Services", gdp: "410B", count: 24 },
-      { name: "Telecommunications", gdp: "300B", count: 20 },
-      { name: "Cybersecurity", gdp: "250B", count: 18 },
-      { name: "AI & Machine Learning", gdp: "180B", count: 15 }
+      { name: "Athletic Apparel & Footwear", gdp: "280B", count: 45 },
+      { name: "Electronics", gdp: "390B", count: 52 },
+      { name: "Personal Care", gdp: "180B", count: 38 },
+      { name: "Home & Lifestyle", gdp: "150B", count: 45 }
     ]
   },
   {
-    title: "Consumer Goods",
-    gdp: "1.8T",
-    description: "Retail products and consumer packaged goods",
-    count: 234,
+    title: "Groceries",
+    gdp: "650B",
+    description: "Grocery retailers and food products with emphasis on local sourcing and sustainability",
+    count: 120,
     subcategories: [
-      { name: "Food & Beverages", gdp: "450B", count: 67 },
-      { name: "Personal Care", gdp: "280B", count: 45 },
-      { name: "Household Products", gdp: "320B", count: 52 },
-      { name: "Apparel & Accessories", gdp: "390B", count: 41 },
-      { name: "Luxury Goods", gdp: "360B", count: 29 },
-      { name: "Sports Equipment", gdp: "150B", count: 25 },
-      { name: "Pet Products", gdp: "110B", count: 20 }
+      { name: "Organic & Natural Foods", gdp: "180B", count: 35 },
+      { name: "Supermarket Chain", gdp: "470B", count: 45 },
+      { name: "Specialty Foods", gdp: "120B", count: 25 },
+      { name: "Fresh Produce", gdp: "80B", count: 15 }
     ]
   },
   {
@@ -137,14 +131,14 @@ const Categories = () => {
       <main className="flex-1 container mx-auto px-4 pt-24 pb-12">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">Industry Categories</h1>
-          <p className="text-gray-600">
-            Explore alternative companies across major industries and their economic impact
+          <p className="text-gray-600 max-w-3xl">
+            Explore US companies and their products across major industries, with detailed tracking of US-sourced components and manufacturing locations. Special focus on consumer goods and grocery sectors.
           </p>
         </div>
 
-        <CategorySearch 
+        <UnifiedSearch 
           categories={allCategories} 
-          onSearch={setFilteredCategories} 
+          onCategorySearch={setFilteredCategories} 
         />
         
         <div className="space-y-8">

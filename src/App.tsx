@@ -9,6 +9,7 @@ import Categories from "./pages/Categories";
 import CategoryDetailPage from "./pages/CategoryDetailPage";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/category/:category/:subcategory" element={<CategoryDetailPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
