@@ -4,6 +4,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { CompanyCard } from "@/components/CompanyCard";
 import { Footer } from "@/components/Footer";
 import { CategorySection } from "@/components/CategorySection";
+import { AIEnhancer } from "@/components/AIEnhancer";
 import { motion, AnimatePresence } from "framer-motion";
 
 const sampleCompanies = [
@@ -166,6 +167,10 @@ const Index = () => {
 
         <div className="mb-12">
           <SearchBar onSearch={handleSearch} companies={sampleCompanies} />
+        </div>
+
+        <div className="mb-12">
+          <AIEnhancer />
         </div>
 
         <AnimatePresence mode="wait">
