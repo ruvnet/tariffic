@@ -1,10 +1,10 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Card } from "@/components/ui/card";
-import { Link } from "react-router-dom";
 import { CategorySection } from "@/components/CategorySection";
+import { CategorySearch } from "@/components/CategorySearch";
+import { useState } from "react";
 
-const categories = [
+const allCategories = [
   {
     title: "Technology",
     gdp: "2.1T",
@@ -15,7 +15,9 @@ const categories = [
       { name: "Enterprise Software", gdp: "380B", count: 38 },
       { name: "Semiconductors", gdp: "550B", count: 29 },
       { name: "Cloud Services", gdp: "410B", count: 24 },
-      { name: "Telecommunications", gdp: "300B", count: 20 }
+      { name: "Telecommunications", gdp: "300B", count: 20 },
+      { name: "Cybersecurity", gdp: "250B", count: 18 },
+      { name: "AI & Machine Learning", gdp: "180B", count: 15 }
     ]
   },
   {
@@ -28,7 +30,9 @@ const categories = [
       { name: "Personal Care", gdp: "280B", count: 45 },
       { name: "Household Products", gdp: "320B", count: 52 },
       { name: "Apparel & Accessories", gdp: "390B", count: 41 },
-      { name: "Luxury Goods", gdp: "360B", count: 29 }
+      { name: "Luxury Goods", gdp: "360B", count: 29 },
+      { name: "Sports Equipment", gdp: "150B", count: 25 },
+      { name: "Pet Products", gdp: "110B", count: 20 }
     ]
   },
   {
@@ -41,7 +45,9 @@ const categories = [
       { name: "Investment Banking", gdp: "760B", count: 22 },
       { name: "Insurance", gdp: "650B", count: 31 },
       { name: "Fintech", gdp: "480B", count: 19 },
-      { name: "Asset Management", gdp: "420B", count: 12 }
+      { name: "Asset Management", gdp: "420B", count: 12 },
+      { name: "Cryptocurrency", gdp: "280B", count: 15 },
+      { name: "Payment Processing", gdp: "320B", count: 18 }
     ]
   },
   {
@@ -54,7 +60,9 @@ const categories = [
       { name: "Medical Devices", gdp: "410B", count: 35 },
       { name: "Healthcare Services", gdp: "620B", count: 48 },
       { name: "Biotechnology", gdp: "450B", count: 29 },
-      { name: "Digital Health", gdp: "340B", count: 24 }
+      { name: "Digital Health", gdp: "340B", count: 24 },
+      { name: "Mental Health", gdp: "180B", count: 18 },
+      { name: "Elder Care", gdp: "220B", count: 15 }
     ]
   },
   {
@@ -67,7 +75,9 @@ const categories = [
       { name: "Aerospace", gdp: "480B", count: 28 },
       { name: "Industrial Equipment", gdp: "440B", count: 52 },
       { name: "Electronics Manufacturing", gdp: "510B", count: 41 },
-      { name: "Chemical Production", gdp: "350B", count: 32 }
+      { name: "Chemical Production", gdp: "350B", count: 32 },
+      { name: "Robotics", gdp: "180B", count: 25 },
+      { name: "3D Printing", gdp: "120B", count: 18 }
     ]
   },
   {
@@ -80,12 +90,46 @@ const categories = [
       { name: "Oil & Gas", gdp: "520B", count: 41 },
       { name: "Nuclear Power", gdp: "290B", count: 18 },
       { name: "Energy Storage", gdp: "310B", count: 26 },
-      { name: "Power Distribution", gdp: "400B", count: 26 }
+      { name: "Power Distribution", gdp: "400B", count: 26 },
+      { name: "Solar Technology", gdp: "220B", count: 22 },
+      { name: "Wind Power", gdp: "180B", count: 19 }
+    ]
+  },
+  {
+    title: "Agriculture",
+    gdp: "1.2T",
+    description: "Farming, food production, and agricultural technology",
+    count: 134,
+    subcategories: [
+      { name: "Crop Production", gdp: "280B", count: 32 },
+      { name: "Livestock", gdp: "310B", count: 28 },
+      { name: "Agricultural Technology", gdp: "180B", count: 24 },
+      { name: "Food Processing", gdp: "240B", count: 26 },
+      { name: "Sustainable Farming", gdp: "150B", count: 18 },
+      { name: "Vertical Farming", gdp: "80B", count: 12 },
+      { name: "Precision Agriculture", gdp: "120B", count: 15 }
+    ]
+  },
+  {
+    title: "Transportation",
+    gdp: "1.6T",
+    description: "Logistics, shipping, and transportation services",
+    count: 156,
+    subcategories: [
+      { name: "Logistics", gdp: "420B", count: 38 },
+      { name: "Maritime Shipping", gdp: "380B", count: 32 },
+      { name: "Air Freight", gdp: "290B", count: 25 },
+      { name: "Rail Transport", gdp: "250B", count: 22 },
+      { name: "Last-Mile Delivery", gdp: "180B", count: 20 },
+      { name: "Electric Vehicles", gdp: "210B", count: 24 },
+      { name: "Autonomous Transport", gdp: "150B", count: 18 }
     ]
   }
 ];
 
 const Categories = () => {
+  const [filteredCategories, setFilteredCategories] = useState(allCategories);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -97,9 +141,14 @@ const Categories = () => {
             Explore alternative companies across major industries and their economic impact
           </p>
         </div>
+
+        <CategorySearch 
+          categories={allCategories} 
+          onSearch={setFilteredCategories} 
+        />
         
         <div className="space-y-8">
-          {categories.map((category) => (
+          {filteredCategories.map((category) => (
             <CategorySection 
               key={category.title}
               category={category}
