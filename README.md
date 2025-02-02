@@ -1,69 +1,86 @@
 # Welcome to Tariffic
 
-## Project info
+Tariffic helps users discover and explore non-American alternatives to companies and products across various industries. Whether you're looking to diversify your supply chain, find local alternatives, or explore global options, Tariffic makes it easy to discover companies from around the world.
 
-**URL**: https://lovable.dev/projects/3b0de4b0-aa31-47b8-b762-7023dffc24ea
+## Features
 
-## How can I edit this code?
+- 🔍 Search across multiple industries and sectors
+- 🌍 Find non-American alternatives to popular companies
+- 📊 Compare company profiles and market impact
+- 📈 View detailed supply chain information
+- 🌐 Explore companies by region and country
+- 💹 Access GDP impact data for different sectors
 
-There are several ways of editing your application.
+## Getting Started
 
-**Use Lovable**
+### Using the Live Demo
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3b0de4b0-aa31-47b8-b762-7023dffc24ea) and start prompting.
+Visit [Tariffic](https://lovable.dev/projects/3b0de4b0-aa31-47b8-b762-7023dffc24ea) to explore the application.
 
-Changes made via Lovable will be committed automatically to this repo.
+### Running Locally
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+If you want to use this template for your own project, follow these steps:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Clone the repository
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
+# Navigate to the project directory
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
+# Install dependencies
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Technology Stack
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+This template is built with modern web technologies:
 
-**Use GitHub Codespaces**
+- ⚡️ Vite - Next Generation Frontend Tooling
+- ⚛️ React - A JavaScript library for building user interfaces
+- 🎨 Tailwind CSS - A utility-first CSS framework
+- 🎯 TypeScript - JavaScript with syntax for types
+- 🎪 shadcn/ui - Beautifully designed components
+- 🔄 Tanstack Query - Powerful asynchronous state management
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+  ├── components/     # Reusable UI components
+  ├── data/          # Static data and mock APIs
+  ├── hooks/         # Custom React hooks
+  ├── pages/         # Route components
+  ├── types/         # TypeScript definitions
+  └── utils/         # Helper functions
+```
 
-This project is built with .
+## Customization
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+You can customize this template by:
 
-## How can I deploy this project?
+1. Modifying the categories and sectors in `src/data/`
+2. Updating the company information structure in `src/types/`
+3. Customizing the UI components in `src/components/`
+4. Adding new features or integrations as needed
 
-Simply open [Lovable](https://lovable.dev/projects/3b0de4b0-aa31-47b8-b762-7023dffc24ea) and click on Share -> Publish.
+## Deployment
 
-## I want to use a custom domain - is that possible?
+### Quick Deploy
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+Open [Lovable](https://lovable.dev/projects/3b0de4b0-aa31-47b8-b762-7023dffc24ea) and click on Share -> Publish.
+
+### Custom Domain
+
+While we don't support custom domains directly, you can deploy to Netlify or other providers. Visit our [Custom domains documentation](https://docs.lovable.dev/tips-tricks/custom-domain/) for more details.
+
+## Contributing
+
+Feel free to fork this template and customize it for your needs. If you make improvements that could benefit others, consider submitting a pull request!
+
+## License
+
+This project is open-source and available under the MIT License.
