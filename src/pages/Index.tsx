@@ -7,37 +7,82 @@ import { Footer } from "@/components/Footer";
 // Sample data - will be replaced with API calls later
 const sampleCompanies = [
   {
-    name: "TechCorp",
-    description: "A leading technology company specializing in consumer electronics and software.",
+    name: "Microsoft",
+    description: "Global technology corporation known for Windows OS, Office suite, and cloud services.",
     isAmerican: true,
     alternatives: [
       {
-        name: "GlobalTech",
-        country: "Sweden",
-        description: "Innovative tech company with focus on sustainable electronics.",
+        name: "SAP",
+        country: "Germany",
+        description: "Enterprise software solutions and business applications provider.",
       },
       {
-        name: "EcoTech",
+        name: "Nokia",
         country: "Finland",
-        description: "Environmentally conscious technology solutions provider.",
+        description: "Telecommunications, technology, and consumer electronics company.",
       },
     ],
   },
   {
-    name: "GreenEnergy",
-    description: "Renewable energy solutions and sustainable power systems.",
-    isAmerican: false,
-    alternatives: [],
+    name: "Amazon",
+    description: "E-commerce and cloud computing giant with diverse technology services.",
+    isAmerican: true,
+    alternatives: [
+      {
+        name: "Alibaba",
+        country: "China",
+        description: "Global e-commerce and technology company.",
+      },
+      {
+        name: "Rakuten",
+        country: "Japan",
+        description: "E-commerce and online retailing platform.",
+      },
+    ],
   },
+  {
+    name: "Apple",
+    description: "Consumer electronics and software company known for iPhone, Mac, and iOS.",
+    isAmerican: true,
+    alternatives: [
+      {
+        name: "Samsung",
+        country: "South Korea",
+        description: "Consumer electronics, mobile devices, and home appliances manufacturer.",
+      },
+      {
+        name: "Sony",
+        country: "Japan",
+        description: "Electronics, gaming, and entertainment company.",
+      },
+    ],
+  },
+  {
+    name: "Meta",
+    description: "Social media and technology company behind Facebook, Instagram, and WhatsApp.",
+    isAmerican: true,
+    alternatives: [
+      {
+        name: "Line",
+        country: "Japan",
+        description: "Social media and communications platform.",
+      },
+      {
+        name: "WeChat",
+        country: "China",
+        description: "Multi-purpose messaging and social media app.",
+      },
+    ],
+  }
 ];
 
 const Index = () => {
   const [searchResults, setSearchResults] = useState(sampleCompanies);
 
   const handleSearch = (query: string) => {
-    // Filter companies based on search query
     const filtered = sampleCompanies.filter((company) =>
-      company.name.toLowerCase().includes(query.toLowerCase())
+      company.name.toLowerCase().includes(query.toLowerCase()) ||
+      company.description.toLowerCase().includes(query.toLowerCase())
     );
     setSearchResults(filtered);
   };

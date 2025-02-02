@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,20 +10,20 @@ export const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <a href="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <span className="text-xl font-semibold">AlternativeTo</span>
-          </a>
+          </Link>
 
           <div className="hidden md:flex items-center space-x-8">
-            <a href="/" className="text-sm font-medium hover:text-primary transition-colors">
+            <Link to="/" className="text-sm font-medium hover:text-primary transition-colors">
               Home
-            </a>
-            <a href="/about" className="text-sm font-medium hover:text-primary transition-colors">
+            </Link>
+            <Link to="/about" className="text-sm font-medium hover:text-primary transition-colors">
               About
-            </a>
-            <a href="/categories" className="text-sm font-medium hover:text-primary transition-colors">
+            </Link>
+            <Link to="/categories" className="text-sm font-medium hover:text-primary transition-colors">
               Categories
-            </a>
+            </Link>
           </div>
 
           <Button
@@ -38,15 +39,15 @@ export const Navbar = () => {
         {isOpen && (
           <div className="md:hidden py-4 animate-fade-in">
             <div className="flex flex-col space-y-4">
-              <a href="/" className="text-sm font-medium hover:text-primary transition-colors">
+              <Link to="/" className="text-sm font-medium hover:text-primary transition-colors">
                 Home
-              </a>
-              <a href="/about" className="text-sm font-medium hover:text-primary transition-colors">
+              </Link>
+              <Link to="/about" className="text-sm font-medium hover:text-primary transition-colors">
                 About
-              </a>
-              <a href="/categories" className="text-sm font-medium hover:text-primary transition-colors">
+              </Link>
+              <Link to="/categories" className="text-sm font-medium hover:text-primary transition-colors">
                 Categories
-              </a>
+              </Link>
             </div>
           </div>
         )}
