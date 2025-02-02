@@ -77,12 +77,20 @@ export const CategorySearch = ({ categories, onSearch }: CategorySearchProps) =>
                     className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors"
                     onClick={() => handleSuggestionClick(category)}
                   >
-                    <div className="font-medium">{category.title}</div>
-                    <div className="text-sm text-gray-500 truncate">
-                      {category.description}
-                    </div>
-                    <div className="text-xs text-primary">
-                      {category.subcategories.length} subsectors
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="font-medium">{category.title}</div>
+                        <div className="text-sm text-gray-500 truncate">
+                          {category.description}
+                        </div>
+                        <div className="text-xs text-primary">
+                          {category.subcategories.length} subsectors
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-bold text-primary">${category.gdp}</div>
+                        <div className="text-xs text-gray-500">GDP Impact</div>
+                      </div>
                     </div>
                   </button>
                 ))}
