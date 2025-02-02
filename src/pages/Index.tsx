@@ -3,8 +3,9 @@ import { Navbar } from "@/components/Navbar";
 import { SearchBar } from "@/components/SearchBar";
 import { CompanyCard } from "@/components/CompanyCard";
 import { Footer } from "@/components/Footer";
+import { CategorySection } from "@/components/CategorySection";
+import { motion, AnimatePresence } from "framer-motion";
 
-// Enhanced sample data with more detailed information
 const sampleCompanies = [
   {
     name: "Apple Inc.",
@@ -101,10 +102,48 @@ const sampleCompanies = [
   }
 ];
 
+const topCategories = [
+  {
+    title: "Technology",
+    gdp: "2.1T",
+    description: "Digital technology, hardware, and software sectors",
+    count: 156,
+    subcategories: [
+      { name: "Consumer Electronics", gdp: "460B", count: 45 },
+      { name: "Enterprise Software", gdp: "380B", count: 38 }
+    ]
+  },
+  {
+    title: "Financial Services",
+    gdp: "3.2T",
+    description: "Banking, insurance, and investment services",
+    count: 112,
+    subcategories: [
+      { name: "Commercial Banking", gdp: "890B", count: 28 },
+      { name: "Investment Banking", gdp: "760B", count: 22 }
+    ]
+  },
+  {
+    title: "Healthcare",
+    gdp: "2.4T",
+    description: "Medical services, pharmaceuticals, and healthcare technology",
+    count: 178,
+    subcategories: [
+      { name: "Pharmaceuticals", gdp: "580B", count: 42 },
+      { name: "Medical Devices", gdp: "410B", count: 35 }
+    ]
+  }
+];
+
 const Index = () => {
-  const [searchResults, setSearchResults] = useState(sampleCompanies);
+  const [searchResults, setSearchResults] = useState<typeof sampleCompanies | null>(null);
 
   const handleSearch = (query: string) => {
+    if (!query.trim()) {
+      setSearchResults(null);
+      return;
+    }
+    
     const filtered = sampleCompanies.filter((company) =>
       company.name.toLowerCase().includes(query.toLowerCase()) ||
       company.description.toLowerCase().includes(query.toLowerCase())
@@ -126,14 +165,47 @@ const Index = () => {
         </div>
 
         <div className="mb-12">
-          <SearchBar onSearch={handleSearch} />
+          <SearchBar onSearch={handleSearch} companies={sampleCompanies} />
         </div>
 
-        <div className="grid gap-8">
-          {searchResults.map((company) => (
-            <CompanyCard key={company.name} {...company} />
-          ))}
-        </div>
+        <AnimatePresence mode="wait">
+          {searchResults === null ? (
+            <motion.div
+              key="categories"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="space-y-8"
+            >
+              <h2 className="text-2xl font-bold mb-6">Top Categories by GDP Impact</h2>
+              {topCategories.map((category) => (
+                <CategorySection 
+                  key={category.title}
+                  category={category}
+                />
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              key="results"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="grid gap-8"
+            >
+              <h2 className="text-2xl font-bold mb-6">Search Results</h2>
+              {searchResults.length > 0 ? (
+                searchResults.map((company) => (
+                  <CompanyCard key={company.name} {...company} />
+                ))
+              ) : (
+                <div className="text-center text-gray-600">
+                  No companies found matching your search.
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       <Footer />
