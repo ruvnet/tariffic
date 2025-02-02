@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, Settings, Globe } from "lucide-react";
+import { Menu, Settings, Globe, Home, Info, Grid } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -41,30 +41,31 @@ export const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               to="/" 
-              className={`text-sm font-medium hover:text-primary transition-colors ${isActive('/')}`}
+              className={`text-sm font-medium hover:text-primary transition-colors flex items-center gap-2 ${isActive('/')}`}
             >
+              <Home className="h-4 w-4" />
               Home
             </Link>
             <Link 
               to="/about" 
-              className={`text-sm font-medium hover:text-primary transition-colors ${isActive('/about')}`}
+              className={`text-sm font-medium hover:text-primary transition-colors flex items-center gap-2 ${isActive('/about')}`}
             >
+              <Info className="h-4 w-4" />
               About
             </Link>
             <Link 
               to="/categories" 
-              className={`text-sm font-medium hover:text-primary transition-colors ${isActive('/categories')}`}
+              className={`text-sm font-medium hover:text-primary transition-colors flex items-center gap-2 ${isActive('/categories')}`}
             >
+              <Grid className="h-4 w-4" />
               Categories
             </Link>
             <Link 
               to="/settings" 
-              className={`text-sm font-medium hover:text-primary transition-colors ${isActive('/settings')}`}
+              className={`text-sm font-medium hover:text-primary transition-colors flex items-center gap-2 ${isActive('/settings')}`}
             >
-              <span className="flex items-center gap-2">
-                <Settings className="h-4 w-4" />
-                Settings
-              </span>
+              <Settings className="h-4 w-4" />
+              Settings
             </Link>
 
             <DropdownMenu>
@@ -104,34 +105,35 @@ export const Navbar = () => {
             <div className="flex flex-col space-y-4">
               <Link 
                 to="/" 
-                className={`text-sm font-medium hover:text-primary transition-colors ${isActive('/')}`}
+                className={`text-sm font-medium hover:text-primary transition-colors flex items-center gap-2 ${isActive('/')}`}
                 onClick={() => setIsOpen(false)}
               >
+                <Home className="h-4 w-4" />
                 Home
               </Link>
               <Link 
                 to="/about" 
-                className={`text-sm font-medium hover:text-primary transition-colors ${isActive('/about')}`}
+                className={`text-sm font-medium hover:text-primary transition-colors flex items-center gap-2 ${isActive('/about')}`}
                 onClick={() => setIsOpen(false)}
               >
+                <Info className="h-4 w-4" />
                 About
               </Link>
               <Link 
                 to="/categories" 
-                className={`text-sm font-medium hover:text-primary transition-colors ${isActive('/categories')}`}
+                className={`text-sm font-medium hover:text-primary transition-colors flex items-center gap-2 ${isActive('/categories')}`}
                 onClick={() => setIsOpen(false)}
               >
+                <Grid className="h-4 w-4" />
                 Categories
               </Link>
               <Link 
                 to="/settings" 
-                className={`text-sm font-medium hover:text-primary transition-colors ${isActive('/settings')}`}
+                className={`text-sm font-medium hover:text-primary transition-colors flex items-center gap-2 ${isActive('/settings')}`}
                 onClick={() => setIsOpen(false)}
               >
-                <span className="flex items-center gap-2">
-                  <Settings className="h-4 w-4" />
-                  Settings
-                </span>
+                <Settings className="h-4 w-4" />
+                Settings
               </Link>
 
               <div className="pt-2 border-t">
