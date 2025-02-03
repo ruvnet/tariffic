@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, Settings, Globe, Home, Info, Grid, Boxes } from "lucide-react";
+import { Menu, Settings, Globe, Home, Info, Grid, Boxes, Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -46,6 +46,13 @@ export const Navbar = () => {
             >
               <Home className="h-4 w-4" />
               Home
+            </Link>
+            <Link 
+              to="/calculator" 
+              className={`text-sm font-medium hover:text-primary transition-colors flex items-center gap-2 ${isActive('/calculator')}`}
+            >
+              <Calculator className="h-4 w-4" />
+              Calculator
             </Link>
             <Link 
               to="/about" 
@@ -111,6 +118,14 @@ export const Navbar = () => {
               >
                 <Home className="h-4 w-4" />
                 Home
+              </Link>
+              <Link 
+                to="/calculator" 
+                className={`text-sm font-medium hover:text-primary transition-colors flex items-center gap-2 ${isActive('/calculator')}`}
+                onClick={() => setIsOpen(false)}
+              >
+                <Calculator className="h-4 w-4" />
+                Calculator
               </Link>
               <Link 
                 to="/about" 

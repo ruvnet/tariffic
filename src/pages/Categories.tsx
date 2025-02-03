@@ -1,10 +1,27 @@
+import { useState, useEffect } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CategorySection } from "@/components/CategorySection";
 import { UnifiedSearch } from "@/components/UnifiedSearch";
-import { useState } from "react";
+import { generateCategoryInsights } from "@/lib/generateProductContent.ts";
+import { useQuery } from "@tanstack/react-query";
 
-const allCategories = [
+interface Subcategory {
+  name: string;
+  gdp: string;
+  count: number;
+}
+
+interface Category {
+  title: string;
+  gdp: string;
+  description: string;
+  count: number;
+  subcategories: Subcategory[];
+}
+
+// Default categories to show while loading dynamic content
+const defaultCategories: Category[] = [
   {
     title: "Consumer",
     gdp: "850B",
@@ -13,8 +30,7 @@ const allCategories = [
     subcategories: [
       { name: "Athletic Apparel & Footwear", gdp: "280B", count: 45 },
       { name: "Electronics", gdp: "390B", count: 52 },
-      { name: "Personal Care", gdp: "180B", count: 38 },
-      { name: "Home & Lifestyle", gdp: "150B", count: 45 }
+      { name: "Personal Care", gdp: "180B", count: 38 }
     ]
   },
   {
@@ -24,105 +40,72 @@ const allCategories = [
     count: 120,
     subcategories: [
       { name: "Organic & Natural Foods", gdp: "180B", count: 35 },
-      { name: "Supermarket Chain", gdp: "470B", count: 45 },
-      { name: "Specialty Foods", gdp: "120B", count: 25 },
-      { name: "Fresh Produce", gdp: "80B", count: 15 }
-    ]
-  },
-  {
-    title: "Financial Services",
-    gdp: "3.2T",
-    description: "Banking, insurance, and investment services",
-    count: 112,
-    subcategories: [
-      { name: "Commercial Banking", gdp: "890B", count: 28 },
-      { name: "Investment Banking", gdp: "760B", count: 22 },
-      { name: "Insurance", gdp: "650B", count: 31 },
-      { name: "Fintech", gdp: "480B", count: 19 },
-      { name: "Asset Management", gdp: "420B", count: 12 },
-      { name: "Cryptocurrency", gdp: "280B", count: 15 },
-      { name: "Payment Processing", gdp: "320B", count: 18 }
+      { name: "Supermarket Chain", gdp: "470B", count: 45 }
     ]
   },
   {
     title: "Healthcare",
-    gdp: "2.4T",
-    description: "Medical services, pharmaceuticals, and healthcare technology",
-    count: 178,
-    subcategories: [
-      { name: "Pharmaceuticals", gdp: "580B", count: 42 },
-      { name: "Medical Devices", gdp: "410B", count: 35 },
-      { name: "Healthcare Services", gdp: "620B", count: 48 },
-      { name: "Biotechnology", gdp: "450B", count: 29 },
-      { name: "Digital Health", gdp: "340B", count: 24 },
-      { name: "Mental Health", gdp: "180B", count: 18 },
-      { name: "Elder Care", gdp: "220B", count: 15 }
-    ]
-  },
-  {
-    title: "Manufacturing",
-    gdp: "2.3T",
-    description: "Industrial production and manufacturing processes",
-    count: 198,
-    subcategories: [
-      { name: "Automotive", gdp: "520B", count: 45 },
-      { name: "Aerospace", gdp: "480B", count: 28 },
-      { name: "Industrial Equipment", gdp: "440B", count: 52 },
-      { name: "Electronics Manufacturing", gdp: "510B", count: 41 },
-      { name: "Chemical Production", gdp: "350B", count: 32 },
-      { name: "Robotics", gdp: "180B", count: 25 },
-      { name: "3D Printing", gdp: "120B", count: 18 }
-    ]
-  },
-  {
-    title: "Energy",
-    gdp: "1.9T",
-    description: "Traditional and renewable energy sectors",
-    count: 145,
-    subcategories: [
-      { name: "Renewable Energy", gdp: "380B", count: 34 },
-      { name: "Oil & Gas", gdp: "520B", count: 41 },
-      { name: "Nuclear Power", gdp: "290B", count: 18 },
-      { name: "Energy Storage", gdp: "310B", count: 26 },
-      { name: "Power Distribution", gdp: "400B", count: 26 },
-      { name: "Solar Technology", gdp: "220B", count: 22 },
-      { name: "Wind Power", gdp: "180B", count: 19 }
-    ]
-  },
-  {
-    title: "Agriculture",
     gdp: "1.2T",
-    description: "Farming, food production, and agricultural technology",
-    count: 134,
+    description: "Healthcare and pharmaceutical companies focusing on research and manufacturing",
+    count: 150,
     subcategories: [
-      { name: "Crop Production", gdp: "280B", count: 32 },
-      { name: "Livestock", gdp: "310B", count: 28 },
-      { name: "Agricultural Technology", gdp: "180B", count: 24 },
-      { name: "Food Processing", gdp: "240B", count: 26 },
-      { name: "Sustainable Farming", gdp: "150B", count: 18 },
-      { name: "Vertical Farming", gdp: "80B", count: 12 },
-      { name: "Precision Agriculture", gdp: "120B", count: 15 }
+      { name: "Pharmaceuticals", gdp: "580B", count: 40 },
+      { name: "Medical Devices", gdp: "420B", count: 35 },
+      { name: "Healthcare Services", gdp: "200B", count: 75 }
     ]
   },
   {
-    title: "Transportation",
-    gdp: "1.6T",
-    description: "Logistics, shipping, and transportation services",
-    count: 156,
+    title: "Technology",
+    gdp: "2.1T",
+    description: "Technology companies spanning software, hardware, and digital services",
+    count: 200,
     subcategories: [
-      { name: "Logistics", gdp: "420B", count: 38 },
-      { name: "Maritime Shipping", gdp: "380B", count: 32 },
-      { name: "Air Freight", gdp: "290B", count: 25 },
-      { name: "Rail Transport", gdp: "250B", count: 22 },
-      { name: "Last-Mile Delivery", gdp: "180B", count: 20 },
-      { name: "Electric Vehicles", gdp: "210B", count: 24 },
-      { name: "Autonomous Transport", gdp: "150B", count: 18 }
+      { name: "Enterprise Software", gdp: "850B", count: 60 },
+      { name: "Consumer Electronics", gdp: "750B", count: 45 },
+      { name: "Cloud Services", gdp: "500B", count: 95 }
     ]
   }
 ];
 
+const generateSubcategoriesAndCompanies = async (category: Category): Promise<Category> => {
+  const insights = await generateCategoryInsights(category.title);
+  
+  // Convert insights into subcategories format
+  const subcategories = insights.keyPlayers.map((player, index) => ({
+    name: player.name,
+    gdp: player.marketShare,
+    count: 30 + index * 5 // Example count calculation
+  }));
+
+  return {
+    ...category,
+    description: insights.overview,
+    subcategories
+  };
+};
+
 const Categories = () => {
-  const [filteredCategories, setFilteredCategories] = useState(allCategories);
+  const [categories, setCategories] = useState<Category[]>(defaultCategories);
+  const [filteredCategories, setFilteredCategories] = useState<Category[]>(defaultCategories);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const enrichCategories = async () => {
+      setLoading(true);
+      try {
+        const enrichedCategories = await Promise.all(
+          defaultCategories.map(category => generateSubcategoriesAndCompanies(category))
+        );
+        setCategories(enrichedCategories);
+        setFilteredCategories(enrichedCategories);
+      } catch (error) {
+        console.error('Error enriching categories:', error);
+      }
+      setLoading(false);
+    };
+
+    enrichCategories();
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -132,12 +115,12 @@ const Categories = () => {
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">Industry Categories</h1>
           <p className="text-gray-600 max-w-3xl">
-            Explore US companies and their products across major industries, with detailed tracking of US-sourced components and manufacturing locations. Special focus on consumer goods and grocery sectors.
+            Explore US companies and their products across major industries, with detailed tracking of US-sourced components and manufacturing locations.
           </p>
         </div>
 
         <UnifiedSearch 
-          categories={allCategories} 
+          categories={categories} 
           onCategorySearch={setFilteredCategories} 
         />
         
@@ -148,6 +131,17 @@ const Categories = () => {
               category={category}
             />
           ))}
+          {loading && (
+            <div className="animate-pulse space-y-4">
+              <div className="h-8 bg-gray-200 rounded w-1/4"></div>
+              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="h-24 bg-gray-200 rounded"></div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </main>
 

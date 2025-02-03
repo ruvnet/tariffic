@@ -1,3 +1,5 @@
+import { type Product } from './product';
+
 export interface SupplyChainNode {
   location: string;
   type: string;
@@ -24,6 +26,7 @@ export interface Company {
   subsector: string;
   supplyChain: SupplyChainNode[];
   alternatives: Alternative[];
+  products?: Product[];
 }
 
 export interface Subcategory {

@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { consumerCompanies, consumerProducts } from "@/data/sectors/consumer";
 import { groceryCompanies, groceryProducts } from "@/data/sectors/groceries";
+import { healthcareCompanies } from "@/data/sectors/healthcare";
+import { technologyCompanies } from "@/data/sectors/technology";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface Category {
@@ -36,7 +38,12 @@ export const UnifiedSearch = ({ categories, onCategorySearch }: UnifiedSearchPro
   const [activeTab, setActiveTab] = useState<TabValue>("all");
 
   // Combine all companies and products
-  const allCompanies = [...consumerCompanies, ...groceryCompanies];
+  const allCompanies = [
+    ...consumerCompanies,
+    ...groceryCompanies,
+    ...healthcareCompanies,
+    ...technologyCompanies
+  ];
   const allProducts = [...consumerProducts, ...groceryProducts];
 
   useEffect(() => {
@@ -57,7 +64,8 @@ export const UnifiedSearch = ({ categories, onCategorySearch }: UnifiedSearchPro
           (company) =>
             company.name.toLowerCase().includes(query.toLowerCase()) ||
             company.description.toLowerCase().includes(query.toLowerCase()) ||
-            company.subsector.toLowerCase().includes(query.toLowerCase())
+            company.subsector.toLowerCase().includes(query.toLowerCase()) ||
+            company.sector.toLowerCase().includes(query.toLowerCase())
         )
         .map((company) => ({ type: "company" as const, item: company }));
 
@@ -111,7 +119,7 @@ export const UnifiedSearch = ({ categories, onCategorySearch }: UnifiedSearchPro
         <div className="flex items-center gap-4 mb-4">
           <Input
             type="text"
-            placeholder="Search across categories, companies, and products..."
+            placeholder="Search across all sectors, companies, and products..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="flex-1"
@@ -173,11 +181,19 @@ export const UnifiedSearch = ({ categories, onCategorySearch }: UnifiedSearchPro
                               </div>
                               <div className="flex gap-2 mt-1">
                                 <Badge variant="outline">{result.type}</Badge>
-                                {!isCategory && (
+                                {isCompany && (
+                                  <>
+                                    <Badge variant="secondary">
+                                      {(result.item as Company).sector}
+                                    </Badge>
+                                    <Badge variant="outline">
+                                      {(result.item as Company).subsector}
+                                    </Badge>
+                                  </>
+                                )}
+                                {isProduct && (
                                   <Badge variant="secondary">
-                                    {isCompany
-                                      ? (result.item as Company).subsector
-                                      : (result.item as Product).subcategory}
+                                    {(result.item as Product).category}
                                   </Badge>
                                 )}
                               </div>

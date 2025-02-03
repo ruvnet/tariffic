@@ -13,7 +13,9 @@ const featuredCategories = [
     count: 180,
     subcategories: [
       { name: "Athletic Apparel & Footwear", gdp: "280B", count: 45 },
-      { name: "Electronics", gdp: "390B", count: 52 }
+      { name: "Electronics", gdp: "390B", count: 52 },
+      { name: "Personal Care", gdp: "180B", count: 38 },
+      { name: "Home & Lifestyle", gdp: "150B", count: 45 }
     ]
   },
   {
@@ -23,7 +25,45 @@ const featuredCategories = [
     count: 120,
     subcategories: [
       { name: "Organic & Natural Foods", gdp: "180B", count: 35 },
-      { name: "Supermarket Chain", gdp: "470B", count: 45 }
+      { name: "Supermarket Chain", gdp: "470B", count: 45 },
+      { name: "Specialty Foods", gdp: "120B", count: 25 },
+      { name: "Fresh Produce", gdp: "80B", count: 15 }
+    ]
+  },
+  {
+    title: "Financial Services",
+    gdp: "3.2T",
+    description: "Banking, insurance, and investment services with robust digital solutions",
+    count: 112,
+    subcategories: [
+      { name: "Commercial Banking", gdp: "890B", count: 28 },
+      { name: "Investment Banking", gdp: "760B", count: 22 },
+      { name: "Insurance", gdp: "650B", count: 31 },
+      { name: "Fintech", gdp: "480B", count: 19 }
+    ]
+  },
+  {
+    title: "Healthcare",
+    gdp: "2.4T",
+    description: "Medical services, pharmaceuticals, and healthcare technology with innovative approaches",
+    count: 178,
+    subcategories: [
+      { name: "Pharmaceuticals", gdp: "580B", count: 42 },
+      { name: "Medical Devices", gdp: "410B", count: 35 },
+      { name: "Healthcare Services", gdp: "620B", count: 48 },
+      { name: "Biotechnology", gdp: "450B", count: 29 }
+    ]
+  },
+  {
+    title: "Technology",
+    gdp: "2.1T",
+    description: "Digital technology, hardware, and software sectors driving innovation",
+    count: 156,
+    subcategories: [
+      { name: "Consumer Electronics", gdp: "460B", count: 45 },
+      { name: "Enterprise Software", gdp: "380B", count: 38 },
+      { name: "Semiconductors", gdp: "550B", count: 29 },
+      { name: "Cloud Services", gdp: "410B", count: 24 }
     ]
   }
 ];

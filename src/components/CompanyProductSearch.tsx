@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { consumerCompanies, consumerProducts } from "@/data/sectors/consumer";
 import { groceryCompanies, groceryProducts } from "@/data/sectors/groceries";
+import { healthcareCompanies } from "@/data/sectors/healthcare";
+import { technologyCompanies } from "@/data/sectors/technology";
 
 interface SearchResult {
   type: "company" | "product";
@@ -20,7 +22,12 @@ export const CompanyProductSearch = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   // Combine all companies and products
-  const allCompanies = [...consumerCompanies, ...groceryCompanies];
+  const allCompanies = [
+    ...consumerCompanies,
+    ...groceryCompanies,
+    ...healthcareCompanies,
+    ...technologyCompanies
+  ];
   const allProducts = [...consumerProducts, ...groceryProducts];
 
   useEffect(() => {
@@ -30,6 +37,7 @@ export const CompanyProductSearch = () => {
           (company) =>
             company.name.toLowerCase().includes(query.toLowerCase()) ||
             company.description.toLowerCase().includes(query.toLowerCase()) ||
+            company.sector.toLowerCase().includes(query.toLowerCase()) ||
             company.subsector.toLowerCase().includes(query.toLowerCase())
         )
         .map((company) => ({ type: "company" as const, item: company }));
@@ -39,7 +47,8 @@ export const CompanyProductSearch = () => {
           (product) =>
             product.name.toLowerCase().includes(query.toLowerCase()) ||
             product.description.toLowerCase().includes(query.toLowerCase()) ||
-            product.category.toLowerCase().includes(query.toLowerCase())
+            product.category.toLowerCase().includes(query.toLowerCase()) ||
+            product.subcategory.toLowerCase().includes(query.toLowerCase())
         )
         .map((product) => ({ type: "product" as const, item: product }));
 
@@ -58,14 +67,16 @@ export const CompanyProductSearch = () => {
   };
 
   return (
-    <div className="relative w-full max-w-xl mx-auto mb-8">
-      <Input
-        type="text"
-        placeholder="Search companies and products..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="w-full"
-      />
+    <div className="relative w-full max-w-2xl mx-auto mb-8">
+      <div className="relative">
+        <Input
+          type="text"
+          placeholder="Search across all sectors, companies, and products..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="w-full bg-white/80 backdrop-blur-sm border-gray-200 focus:border-primary"
+        />
+      </div>
 
       <AnimatePresence>
         {showSuggestions && suggestions.length > 0 && (
@@ -75,7 +86,7 @@ export const CompanyProductSearch = () => {
             exit={{ opacity: 0, y: -10 }}
             className="absolute w-full mt-2 z-50"
           >
-            <Card>
+            <Card className="border-0 bg-white/95 backdrop-blur-sm shadow-lg">
               <CardContent className="p-2">
                 {suggestions.map((result, index) => (
                   <Link
@@ -90,20 +101,25 @@ export const CompanyProductSearch = () => {
                     className="block"
                     onClick={() => handleSuggestionClick(result)}
                   >
-                    <div className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <div className="font-medium">
+                    <motion.div
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      className="w-full text-left px-4 py-3 hover:bg-gray-50 rounded-lg transition-colors"
+                    >
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium truncate">
                             {result.type === "company"
                               ? (result.item as Company).name
                               : (result.item as Product).name}
                           </div>
-                          <div className="text-sm text-gray-500 truncate">
+                          <div className="text-sm text-gray-500 truncate mt-0.5">
                             {result.type === "company"
                               ? (result.item as Company).description
                               : (result.item as Product).description}
                           </div>
-                          <div className="flex gap-2 mt-1">
+                          <div className="flex flex-wrap gap-2 mt-2">
                             <Badge variant="outline">
                               {result.type === "company"
                                 ? (result.item as Company).sector
@@ -114,17 +130,20 @@ export const CompanyProductSearch = () => {
                                 ? (result.item as Company).subsector
                                 : (result.item as Product).subcategory}
                             </Badge>
+                            {result.type === "company" && (result.item as Company).isAmerican && (
+                              <Badge variant="default">American</Badge>
+                            )}
                           </div>
                         </div>
                         {result.type === "product" && (
-                          <div className="text-right">
+                          <div className="text-right flex-shrink-0">
                             <div className="font-bold text-primary">
                               {(result.item as Product).price}
                             </div>
                           </div>
                         )}
                       </div>
-                    </div>
+                    </motion.div>
                   </Link>
                 ))}
               </CardContent>
